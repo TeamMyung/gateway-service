@@ -1,0 +1,60 @@
+server:
+  port: 8080
+
+spring:
+
+  main:
+    web-application-type: reactive
+
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+
+          discovery:
+            locator:
+              enabled: true
+
+          routes:
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/v1/users/**
+
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/v1/orders/**
+
+            - id: product-service
+              uri: lb://product-service
+              predicates:
+                - Path=/v1/products/**
+
+            - id: vendor-service
+              uri: lb://vendor-service
+              predicates:
+                - Path=/v1/vendors/**
+
+            - id: hub-service
+              uri: lb://hub-service
+              predicates:
+                - Path=/v1/hubs/**
+
+            - id: delivery-service
+              uri: lb://delivery-service
+              predicates:
+                - Path=/v1/deliveries/**
+
+            - id: slack-service
+              uri: lb://slack-service
+              predicates:
+                - Path=/v1/slacks/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/
