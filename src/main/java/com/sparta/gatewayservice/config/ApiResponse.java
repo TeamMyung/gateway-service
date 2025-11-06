@@ -1,5 +1,6 @@
-package com.sparta.gatewayservice;
+package com.sparta.gatewayservice.config;
 
+import com.sparta.gatewayservice.exception.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

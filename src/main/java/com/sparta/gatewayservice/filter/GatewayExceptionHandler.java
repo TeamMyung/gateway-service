@@ -1,7 +1,9 @@
-package com.sparta.gatewayservice;
+package com.sparta.gatewayservice.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.gatewayservice.config.ApiResponse;
+import com.sparta.gatewayservice.exception.ErrorCode;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
