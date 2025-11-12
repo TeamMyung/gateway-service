@@ -22,47 +22,52 @@ spring:
             - id: user-service
               uri: lb://user-service
               predicates:
-                - Path=/v*/users/**, /springdoc/openapi3-user-service.json
+                - Path=/v*/users/**, /user-service/v3/api-docs
+
+            - id: auth-service
+              uri: lb://user-service
+              predicates:
+                - Path=/v*/auth/**, /auth-service/v3/api-docs
 
             - id: order-service
               uri: lb://order-service
               predicates:
-                - Path=/v*/orders/**
+                - Path=/v*/orders/**, /order-service/v3/api-docs
 
             - id: product-service
               uri: lb://product-service
               predicates:
-                - Path=/v*/products/**
+                - Path=/v*/products/**, /product-service/v3/api-docs
 
             - id: vendor-service
               uri: lb://vendor-service
               predicates:
-                - Path=/v*/vendors/**
+                - Path=/v*/vendors/**, /vendor-service/v3/api-docs
 
             - id: hub-service
               uri: lb://hub-service
               predicates:
-                - Path=/v*/hubs/**
+                - Path=/v*/hubs/**, /hub-service/v3/api-docs
 
             - id: hub-path-service
-              uri: lb://hub-path-service
+              uri: lb://hub-service
               predicates:
-                - Path=/v*/hub-paths/**
+                - Path=/v*/hub-paths/**, /hub-path-service/v3/api-docs
 
             - id: delivery-service
               uri: lb://delivery-service
               predicates:
-                - Path=/v*/deliveries/**
+                - Path=/v*/deliveries/**, /delivery-service/v3/api-docs
 
             - id: delivery-path-service
               uri: lb://delivery-path-service
               predicates:
-                - Path=/v*/delivery-paths/**, /springdoc/openapi3-delivery-path-service.json
+                - Path=/v*/delivery-paths/**, /delivery-path-service/v3/api-docs
 
             - id: slack-service
               uri: lb://slack-service
               predicates:
-                - Path=/v*/slacks/**
+                - Path=/v*/slacks/**, /slack-service/v3/api-docs
 
 
 eureka:
@@ -74,13 +79,35 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
 
+
 springdoc:
   swagger-ui:
-#    urls[0]:
-#      name: user-service
-#      url: /springdoc/openapi3-user-service.json
     urls[0]:
+      name: user-service
+      url: /user-service/v3/api-docs
+    urls[1]:
+      name: order-service
+      url: /order-service/v3/api-docs
+    urls[2]:
+      name: product-service
+      url: /product-service/v3/api-docs
+    urls[3]:
+      name: vendor-service
+      url: /vendor-service/v3/api-docs
+    urls[4]:
+      name: hub-service
+      url: /hub-service/v3/api-docs
+    urls[5]:
+      name: hub-path-service
+      url: /hub-path-service/v3/api-docs
+    urls[6]:
+      name: delivery-service
+      url: /delivery-service/v3/api-docs
+    urls[7]:
       name: delivery-path-service
-      url: /springdoc/openapi3-delivery-path-service.json
-    #    use-root-path: true
+      url: /delivery-path-service/v3/api-docs
+    urls[8]:
+      name: slack-service
+      url: /slack-service/v3/api-docs
+
     path: /docs
