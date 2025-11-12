@@ -30,13 +30,12 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     private static final String BEARER = "Bearer ";
-    private static final String TOKEN_TYPE = "token_type";
+    private static final String TOKEN_TYPE = "x-token-type";
     private static final String ACCESS = "access";
-    private static final String ROLE_HEADER = "role";
-    private static final String USER_ID_HEADER = "user_id";
-    private static final String HUB_ID_HEADER = "hub_id";
-    private static final String VENDOR_ID_HEADER = "vendor_id";
-    private static final String DELIVERY_TYPE_HEADER = "delivery_type";
+    private static final String USER_ID_HEADER = "x-userid";
+    private static final String ROLE_HEADER = "x-role";
+    private static final String HUB_ID_HEADER = "x-hub-id";
+    private static final String VENDOR_ID_HEADER = "x-vendor-id";
 
     private static final List<String> PUBLIC_PATHS = List.of(
             "/v1/auth/", "/swagger", "/v3/api-docs", "/actuator/health"
@@ -96,14 +95,12 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         String role = claims.get(ROLE_HEADER, String.class);
         String hubId = claims.get(HUB_ID_HEADER, String.class);
         String vendorId = claims.get(VENDOR_ID_HEADER, String.class);
-        String deliveryType = claims.get(DELIVERY_TYPE_HEADER, String.class);
 
         ServerHttpRequest mutated = exchange.getRequest().mutate()
                 .header(USER_ID_HEADER, nullToEmpty(userId))
                 .header(ROLE_HEADER, nullToEmpty(role))
                 .header(HUB_ID_HEADER, nullToEmpty(hubId))
                 .header(VENDOR_ID_HEADER, nullToEmpty(vendorId))
-                .header(DELIVERY_TYPE_HEADER, nullToEmpty(deliveryType))
                 .build();
 
         return chain.filter(exchange.mutate().request(mutated).build());
