@@ -22,37 +22,48 @@ spring:
             - id: user-service
               uri: lb://user-service
               predicates:
-                - Path=/v1/users/**
+                - Path=/v*/users/**, /springdoc/openapi3-user-service.json
 
             - id: order-service
               uri: lb://order-service
               predicates:
-                - Path=/v1/orders/**
+                - Path=/v*/orders/**
 
             - id: product-service
               uri: lb://product-service
               predicates:
-                - Path=/v1/products/**
+                - Path=/v*/products/**
 
             - id: vendor-service
               uri: lb://vendor-service
               predicates:
-                - Path=/v1/vendors/**
+                - Path=/v*/vendors/**
 
             - id: hub-service
               uri: lb://hub-service
               predicates:
-                - Path=/v1/hubs/**
+                - Path=/v*/hubs/**
+
+            - id: hub-path-service
+              uri: lb://hub-path-service
+              predicates:
+                - Path=/v*/hub-paths/**
 
             - id: delivery-service
               uri: lb://delivery-service
               predicates:
-                - Path=/v1/deliveries/**
+                - Path=/v*/deliveries/**
+
+            - id: delivery-path-service
+              uri: lb://delivery-path-service
+              predicates:
+                - Path=/v*/delivery-paths/**, /springdoc/openapi3-delivery-path-service.json
 
             - id: slack-service
               uri: lb://slack-service
               predicates:
-                - Path=/v1/slacks/**
+                - Path=/v*/slacks/**
+
 
 eureka:
   instance:
@@ -62,3 +73,14 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
+
+springdoc:
+  swagger-ui:
+#    urls[0]:
+#      name: user-service
+#      url: /springdoc/openapi3-user-service.json
+    urls[0]:
+      name: delivery-path-service
+      url: /springdoc/openapi3-delivery-path-service.json
+    #    use-root-path: true
+    path: /docs
