@@ -59,6 +59,11 @@ spring:
               predicates:
                 - Path=/v*/deliveries/**, /delivery-service/v3/api-docs
 
+            - id: delivery-manager-service
+              uri: lb://delivery-manager-service
+              predicates:
+                - Path=/v*/delivery-managers/**, /delivery-manager-service/v3/api-docs
+
             - id: delivery-path-service
               uri: lb://delivery-path-service
               predicates:
@@ -104,9 +109,12 @@ springdoc:
       name: delivery-service
       url: /delivery-service/v3/api-docs
     urls[7]:
+      name: delivery-manager-service
+      url: /delivery-manager-service/v3/api-docs
+    urls[8]:
       name: delivery-path-service
       url: /delivery-path-service/v3/api-docs
-    urls[8]:
+    urls[9]:
       name: slack-service
       url: /slack-service/v3/api-docs
 
